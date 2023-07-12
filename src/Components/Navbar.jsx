@@ -2,16 +2,22 @@ import React, { useState } from "react"
 import Logo from "../Images/Logo.svg";
 import { BsCar2, BsCart2 } from "react-icons/bs";
 import { HiOutlineBars3 } from "react-icons/hi2";
-import { Box, Drawer, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 
-const Navbar = () =>{
-
+const Navbar = () => {
     const [openMenu, setOpenMenu] = useState(false)
+
+    // const openMenu = false
+    // const setOpenMenu = (test) => test  
+
     const MenuOptions = [
         {
             text: "Home",
@@ -35,7 +41,7 @@ const Navbar = () =>{
             icon: <ShoppingCartRoundedIcon />
         },
     ]
-
+    
 
     return <nav>  
         <div className="nav-logo-container">
@@ -56,6 +62,28 @@ Bookings Now
         <div className="navbar-menu-container">
 <HiOutlineBars3 onClick={() => setOpenMenu(true)}/>
         </div>
+        <Drawer open={openMenu} onClose={() => setOpenMenu(false)} anchor="right">
+        <Box sx={{width: 250}}
+        role="presentation"
+        onClick={() => setOpenMenu(true)}
+         onKeyDown = {() => setOpenMenu(false)}
+            >
+                <List>
+                    {MenuOptions.map((item) => (
+                        <ListItem key={item.text} disablePadding >
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    {item.icon}
+                                </ListItemIcon>
+                                <ListItemText primary = {item.text} />
+                            </ListItemButton>
+
+                        </ListItem>
+                    )
+                    )}
+                </List>
+        </Box>
+        </Drawer>
     </nav>;
 }
 
